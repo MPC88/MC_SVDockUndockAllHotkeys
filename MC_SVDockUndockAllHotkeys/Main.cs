@@ -11,7 +11,7 @@ namespace MC_SVDockUndockAllHotkeys
     {
         public const string pluginGuid = "mc.starvalor.fleethotkeys";
         public const string pluginName = "SV Fleet Hotkeys";
-        public const string pluginVersion = "1.0.0";
+        public const string pluginVersion = "1.0.1";
 
         private static ConfigEntry<KeyCodeSubset> cfgModifier;
         private static ConfigEntry<KeyCodeSubset> cfgDockAll;
