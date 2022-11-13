@@ -9,13 +9,14 @@ namespace MC_SVDockUndockAllHotkeys
     [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
     public class Main : BaseUnityPlugin
     {
-        public const string pluginGuid = "mc.starvalor.dockundockallhotkeys";
-        public const string pluginName = "SV Dock/Undock All Hotkeys";
+        public const string pluginGuid = "mc.starvalor.fleethotkeys";
+        public const string pluginName = "SV Fleet Hotkeys";
         public const string pluginVersion = "1.0.0";
 
         private static ConfigEntry<KeyCodeSubset> cfgModifier;
         private static ConfigEntry<KeyCodeSubset> cfgDockAll;
         private static ConfigEntry<KeyCodeSubset> cfgUndockAll;
+        private static ConfigEntry<KeyCodeSubset> cfgDumpAll;
 
         public void Awake()
         {
@@ -27,8 +28,12 @@ namespace MC_SVDockUndockAllHotkeys
                 "2. Undock all",
                 KeyCodeSubset.A,
                 "Key to undock all.  If Modifier key is set, must be pressed with that key.");
+            cfgDumpAll = Config.Bind("Keybinds",
+                "3. Cargo to station",
+                KeyCodeSubset.S,
+                "Command fleet to drop cargo to station.");
             cfgModifier = Config.Bind("Keybinds",
-                "3. Modifier key",
+                "4. Modifier key",
                 KeyCodeSubset.LeftAlt,
                 "Set to \"None\" to disable modifer key.");
         }
@@ -44,6 +49,8 @@ namespace MC_SVDockUndockAllHotkeys
                     FleetControl.instance.DockFleet(true);
                 if (Input.GetKeyDown((KeyCode)cfgUndockAll.Value))
                     FleetControl.instance.LaunchFleet();
+                if (Input.GetKeyDown((KeyCode)cfgDumpAll.Value))
+                    FleetControl.instance.UnloadFleetCargo();
             }
         }
     }
