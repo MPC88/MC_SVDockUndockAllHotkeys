@@ -1,7 +1,6 @@
 ﻿
 using BepInEx;
 using BepInEx.Configuration;
-using HarmonyLib;
 using UnityEngine;
 
 namespace MC_SVDockUndockAllHotkeys
