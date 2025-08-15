@@ -12,14 +12,14 @@ namespace MC_SVDockUndockAllHotkeys
     {
         public const string pluginGuid = "mc.starvalor.fleethotkeys";
         public const string pluginName = "SV Fleet Hotkeys";
-        public const string pluginVersion = "1.0.1";
+        public const string pluginVersion = "1.0.2";
 
         private static ConfigEntry<KeyCodeSubset> cfgModifier;
         private static ConfigEntry<KeyCodeSubset> cfgDockAll;
         private static ConfigEntry<KeyCodeSubset> cfgUndockAll;
         private static ConfigEntry<KeyCodeSubset> cfgDumpAll;
 
-        private static List<int> droneEquipIDs;
+        private static List<int> droneEquipIDs = new List<int>() { 33, 34, 115, 116, 117, 118, 119, 186, 188, 189, 195 };
 
         public void Awake()
         {
@@ -135,18 +135,9 @@ namespace MC_SVDockUndockAllHotkeys
 
         private static bool HasDroneBay(List<InstalledEquipment> installedEquipments)
         {
-            if (droneEquipIDs == null)
-            {
-                droneEquipIDs = new List<int>();
-                foreach (Equipment equip in AccessTools.StaticFieldRefAccess<List<Equipment>>(typeof(EquipmentDB), "equipments"))
-                    if (equip.equipName.Contains("Drone Bay"))
-                        droneEquipIDs.Add(equip.id);
-            }
-
-            if (droneEquipIDs.Count > 0)
-                foreach (InstalledEquipment ie in installedEquipments)
-                    if (droneEquipIDs.Contains(ie.equipmentID))
-                        return true;
+            foreach (InstalledEquipment ie in installedEquipments)
+                if (droneEquipIDs.Contains(ie.equipmentID))
+                    return true;
 
             return false;
         }
